@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #0d1b2a;
+}
+
+nav a {
+  color: white !important;
+}
+
+#map {
+  height: 500px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.alert-log {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+footer {
+  background-color: #0d1b2a;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+}

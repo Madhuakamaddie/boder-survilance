@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Border Surveillance System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+    }
+    nav {
+      background-color: #0d1b2a;
+    }
+    nav a {
+      color: white !important;
+    }
+    #map {
+      height: 500px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    .alert-log {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    footer {
+      background-color: #0d1b2a;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+  <a class="navbar-brand" href="#">Border Surveillance</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#mapSection">Live Map</a></li>
+      <li class="nav-item"><a class="nav-link" href="#alerts">Alerts</a></li>
+      <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="text-center p-5 bg-dark text-white">
+  <h1>Border Surveillance System</h1>
+  <p>AI + IoT powered security monitoring for safer borders.</p>
+</section>
+
+<!-- Map Section -->
+<section id="mapSection" class="container mt-4">
+  <h2 class="text-center">Live Border Map</h2>
+  <div id="map"></div>
+</section>
+
+<!-- Alerts Section -->
+<section id="alerts" class="container mt-5">
+  <h2 class="text-center">Intrusion Alerts</h2>
+  <div class="card shadow p-3">
+    <div class="alert-log" id="alertLog"></div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="container mt-5 mb-5">
+  <h2 class="text-center">About This Project</h2>
+  <p class="text-center">
+    This prototype demonstrates a Border Surveillance System using AI and IoT.
+    It features live maps, intrusion detection, and alert logging.
+  </p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Border Surveillance Project | Built for Demo</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Initialize Map
+  var map = L.map('map').setView([27.2046, 77.4977], 6); // Center on India
+
+  // Tile Layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Dummy intruder alerts
+  function addAlert(lat, lon, message) {
+    L.marker([lat, lon]).addTo(map)
+      .bindPopup("<b>⚠ Alert:</b> " + message).openPopup();
+
+    let log = document.getElementById("alertLog");
+    let entry = document.createElement("div");
+    entry.classList.add("alert", "alert-danger", "p-2", "mb-2");
+    entry.innerText = new Date().toLocaleTimeString() + " - " + message;
+    log.prepend(entry);
+  }
+
+  // Simulate random intrusions
+  setInterval(() => {
+    let lat = 27 + (Math.random() - 0.5) * 10;
+    let lon = 77 + (Math.random() - 0.5) * 10;
+    addAlert(lat, lon, "Intrusion detected at border point!");
+  }, 5000);
+</script>
+
+</body>
+</html>
